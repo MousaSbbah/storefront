@@ -1,4 +1,4 @@
-# demo-context-api
+# Virtual Store
 
 ## Table of Contents
 
