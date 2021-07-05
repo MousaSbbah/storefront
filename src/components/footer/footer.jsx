@@ -1,7 +1,7 @@
 import React from 'react'
 const Footer = () => {
     return (
-        <footer style={{
+        <div style={{
             textAlign: 'center',
             height: '75px',
             lineHeight: '75px',
@@ -9,7 +9,7 @@ const Footer = () => {
         }}>
             <p>Copyright (c) 2021 Mousa Sabah
 </p>
-        </footer>
+        </div>
     )
 }
 

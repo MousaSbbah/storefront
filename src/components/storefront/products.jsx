@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { filterProducts } from '../../store/product';
+import { addToCart } from '../../store/cart';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345
@@ -58,7 +59,9 @@ const Products = (props) => {
                 </CardContent>
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary">
+                <Button size="small" color="primary" onClick={()=>{
+                  props.addToCart(val);
+                }}>
                   Add To Cart
                 </Button>
                 <Button size="small" color="primary">
@@ -76,5 +79,5 @@ const Products = (props) => {
 const mapStateToProps = (state) => ({
   products: state.products.products,
 });
-const mapDispatchToProps = { filterProducts };
+const mapDispatchToProps = { filterProducts,addToCart };
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

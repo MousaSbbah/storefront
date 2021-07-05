@@ -4,12 +4,10 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import categoriesReducer from './categories';
 import productsReducer from './product';
+import cartReducer from './cart';
 
-let reducers = combineReducers({ categories: categoriesReducer,products:productsReducer});
+let reducers = combineReducers({ cart:cartReducer ,categories: categoriesReducer,products:productsReducer});
 
-const store = () => {
-    return createStore(reducers, composeWithDevTools());
-}
 
-export default store();
+export default createStore(reducers, composeWithDevTools());
 

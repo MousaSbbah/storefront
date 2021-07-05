@@ -1,10 +1,12 @@
-import React from 'react';
+import React  from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Link from '@material-ui/core/Link';
+// import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -19,17 +21,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar() {
+ const ButtonAppBar=(props)=> {
   const classes = useStyles();
 
+  console.log(props)
   return (
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            <Link href='/' underline='none' color="inherit">OUR STORE</Link>
+            <Link to='/'  style={{textDecoration:'none',color:'white'}}><h2>OUR STORE</h2></Link>
           </Typography>
-          <Button color="inherit">Cart ( ) </Button>
+          <Button color="inherit"><Link  to='/cart'  style={{textDecoration:'none',color:'white'}}>Cart ( {props.cart.inCart.length}  )</Link>  </Button>
         </Toolbar>
       </AppBar>
   );
 }
+
+const mapStateToProps = (state) => ({
+  cart:state.cart
+});
+
+export default connect(mapStateToProps)(ButtonAppBar);
+
