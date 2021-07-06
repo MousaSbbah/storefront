@@ -1,31 +1,25 @@
 // Each category should have a normalized name, display name, and a description
-
+import axios from 'axios';
 let initialState = {
-  categories: [
-    { name: 'all', displayName: 'All' , description:'ALL product in our store'  },
-    { name: 'electronics', displayName: 'Electronics' , description:'Electronic Devices and tools'  },
-    { name: 'food', displayName: 'Food' , description:'any thing related to food'  }
-    
-  ],
+  categories: [],
   active: 'all',
 };
 
 // this is a reducer
-const reducer =  (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   let { type, payload } = action;
 
   switch (type) {
     case 'CHANGE_CATEGORY':
       let newCategory = payload;
-      console.log("🚀 ~ file: categories.js ~ line 20 ~ reducer ~ newCategory", newCategory)
-      return { categories:state.categories, active:newCategory };
+      return { categories: state.categories, active: newCategory };
+    case 'GET_CATEGORIES':
+      return { categories: payload };
     case 'ALL':
-      console.log("🚀 ~ file: categories.js ~ line 20 ~ reducer ~ newCategory", 'all')
-      return initialState;
+      return { categories: state.categories, active: 'all' };
     default:
       return state;
   }
-
 };
 
 // BELOW ARE THE ACTIONS
@@ -42,4 +36,15 @@ export const allList = () => {
   };
 };
 
-export default reducer ;
+export const getCategories = () => {
+  return async function (dispatch) {
+    const response = await axios.get(
+      'https://api-js401.herokuapp.com/api/v1/categories'
+    );
+    dispatch({
+      type: 'GET_CATEGORIES',
+      payload: response.data.results,
+    });
+  };
+};
+export default reducer;

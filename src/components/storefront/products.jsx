@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useEffect} from 'react';
 import { connect } from 'react-redux';
 import {
   CardActionArea,
@@ -12,8 +12,10 @@ import {
   GridListTile 
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { filterProducts } from '../../store/product';
+import { filterProducts,getProducts,decrementInStock } from '../../store/product';
 import { addToCart } from '../../store/cart';
+import { allList } from '../../store/categories';
+
 const useStyles = makeStyles({
   root: {
     maxWidth: 345
@@ -26,9 +28,16 @@ const useStyles = makeStyles({
 
 const Products = (props) => {
   const classes = useStyles();
+  useEffect(()=>{
+    props.getProducts();
+    },[props])
+
+    
   return (
     <GridList  cols={3} >
-      {props.products.map((val) => {
+      {props.products.products.filter((val) => {
+        return (val.category === props.category || props.category === 'all');
+      }).map((val) => {
         return (
           <GridListTile rows={2}   cols={1}>
             <Card className={classes.root}>
@@ -60,7 +69,14 @@ const Products = (props) => {
               </CardActionArea>
               <CardActions>
                 <Button size="small" color="primary" onClick={()=>{
-                  props.addToCart(val);
+                  
+                    let currentCart = props.cart.inCart.filter(product=>(Object.values(product).includes(val.name)))
+                        if(currentCart.length === 0 && val.inStock > 0 ){
+
+                          props.decrementInStock(val);
+                          props.addToCart(val);
+                        }
+                  
                 }}>
                   Add To Cart
                 </Button>
@@ -74,10 +90,13 @@ const Products = (props) => {
       })}
     </GridList >
   );
+  
 };
 
 const mapStateToProps = (state) => ({
-  products: state.products.products,
+  products: state.products,
+  category:state.categories.active,
+  cart:state.cart
 });
-const mapDispatchToProps = { filterProducts,addToCart };
+const mapDispatchToProps = { filterProducts,addToCart,getProducts,allList ,decrementInStock};
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

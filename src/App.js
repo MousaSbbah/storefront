@@ -4,6 +4,7 @@ import Footer from './components/footer/footer';
 import SimpleCart from './components/cart/simplecart';
 import Checkout from './components/cart/checkout';
 import { Route, Switch } from 'react-router-dom';
+
 function App() {
   return (
     <div className="App">
