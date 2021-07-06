@@ -25,7 +25,8 @@ const SimpleCart = (props) => {
                 edge="end"
                 aria-label="delete"
                 onClick={() => {
-                  props.incrementInStock(val);
+                  const product = props.products.filter(obj=>(obj.name === val.name))
+                  props.incrementInStock(product[0]);
                   props.remove(idx);
                 }}
               >
@@ -41,6 +42,7 @@ const SimpleCart = (props) => {
 
 const mapStateToProps = (state) => ({
   cart: state.cart,
+  products:state.products.products
 });
 const mapDispatchToProps = { remove,incrementInStock };
 export default connect(mapStateToProps, mapDispatchToProps)(SimpleCart);
