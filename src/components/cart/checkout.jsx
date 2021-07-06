@@ -9,6 +9,7 @@ import {
 }from '@material-ui/core';
 import {  Delete } from '@material-ui/icons';
 import { remove } from '../../store/cart';
+import { incrementInStock } from '../../store/product';
 
 const Checkout = (props) => {
   return (
@@ -19,13 +20,14 @@ const Checkout = (props) => {
           <ListItem>
 
             <ListItemText primary={val.name} />
-            <ListItemText primary={val.price} $ />
+            <ListItemText primary={val.price + ' $'}  />
             <ListItemSecondaryAction>
               <IconButton
                 edge="end"
                 aria-label="delete"
                 onClick={() => {
-                  props.remove(idx);
+                    props.incrementInStock(val);
+                    props.remove(idx);
                 }}
               >
                 <Delete />
@@ -38,7 +40,7 @@ const Checkout = (props) => {
       <ListItem>
 
             <ListItemText primary='Total' />
-            <ListItemText primary={props.cart.inCart.reduce((total,obj)=>total+=obj.price ,0).toFixed(2)} $ />
+            <ListItemText primary={props.cart.inCart.reduce((total,obj)=>total+=obj.price ,0).toFixed(2)+' $'} />
             
           </ListItem>
     </List>
@@ -48,5 +50,5 @@ const Checkout = (props) => {
 const mapStateToProps = (state) => ({
   cart: state.cart,
 });
-const mapDispatchToProps = { remove };
+const mapDispatchToProps = { remove,incrementInStock };
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

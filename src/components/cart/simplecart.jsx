@@ -9,6 +9,7 @@ import {
 }from '@material-ui/core';
 import {  Delete } from '@material-ui/icons';
 import { remove } from '../../store/cart';
+import { incrementInStock } from '../../store/product';
 
 const SimpleCart = (props) => {
   return (
@@ -24,6 +25,7 @@ const SimpleCart = (props) => {
                 edge="end"
                 aria-label="delete"
                 onClick={() => {
+                  props.incrementInStock(val);
                   props.remove(idx);
                 }}
               >
@@ -40,5 +42,5 @@ const SimpleCart = (props) => {
 const mapStateToProps = (state) => ({
   cart: state.cart,
 });
-const mapDispatchToProps = { remove };
+const mapDispatchToProps = { remove,incrementInStock };
 export default connect(mapStateToProps, mapDispatchToProps)(SimpleCart);

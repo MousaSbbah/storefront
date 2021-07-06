@@ -11,7 +11,7 @@ let initialState = {
     let newCart;
     switch (type) {
       case 'ADD':
-          if(state.inCart.includes(payload)) return state;
+        
         newCart = state.inCart
         newCart.push(payload);
         return {inCart:newCart};
