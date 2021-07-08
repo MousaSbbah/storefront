@@ -5,15 +5,16 @@ import {
   ListItem,
   ListItemText,
   ListItemSecondaryAction,
-  IconButton
+  IconButton,
+  
 }from '@material-ui/core';
 import {  Delete } from '@material-ui/icons';
 import { remove } from '../../store/cart';
 import { incrementInStock } from '../../store/product';
-
+import Card from './card'
 const Checkout = (props) => {
   return (
-
+    <>
     <List >
       {props.cart.inCart.map((val, idx) => {
         return (
@@ -44,6 +45,8 @@ const Checkout = (props) => {
             
           </ListItem>
     </List>
+          <Card/>
+          </>
   );
 };
 

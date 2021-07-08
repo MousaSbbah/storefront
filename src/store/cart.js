@@ -13,7 +13,7 @@ let initialState = {
       case 'ADD':
         
         newCart = state.inCart
-        newCart.push(payload);
+        if(! state.inCart.includes(payload)) newCart.push(payload);
         return {inCart:newCart};
       case 'REMOVE':
         newCart = state.inCart

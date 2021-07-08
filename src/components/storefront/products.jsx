@@ -12,9 +12,10 @@ import {
   GridListTile 
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { filterProducts,getProducts,decrementInStock } from '../../store/product';
-import { addToCart } from '../../store/cart';
+import { filterProducts,getProducts,decrementInStock ,getDetails } from '../../store/product';
+import { addToCart  } from '../../store/cart';
 import { allList } from '../../store/categories';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -80,8 +81,10 @@ const Products = (props) => {
                 }}>
                   Add To Cart
                 </Button>
-                <Button size="small" color="primary">
-                  Learn More
+                <Button onClick={()=>{
+                  props.getDetails(val._id);
+                }} size="small" color="primary">
+                   <Link to={`/products/${val._id}`}>Learn More</Link>  
                 </Button>
               </CardActions>
             </Card>
@@ -98,5 +101,5 @@ const mapStateToProps = (state) => ({
   category:state.categories.active,
   cart:state.cart
 });
-const mapDispatchToProps = { filterProducts,addToCart,getProducts,allList ,decrementInStock};
+const mapDispatchToProps = { filterProducts,addToCart,getProducts,allList,getDetails ,decrementInStock};
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

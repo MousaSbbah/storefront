@@ -1,7 +1,6 @@
 import { createStore, combineReducers,applyMiddleware } from 'redux';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
-
 import categoriesReducer from './categories';
 import productsReducer from './product';
 import cartReducer from './cart';

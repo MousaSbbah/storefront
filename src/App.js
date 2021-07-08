@@ -4,6 +4,7 @@ import Footer from './components/footer/footer';
 import SimpleCart from './components/cart/simplecart';
 import Checkout from './components/cart/checkout';
 import { Route, Switch } from 'react-router-dom';
+import Details from './components/products/details';
 
 function App() {
   return (
@@ -37,6 +38,10 @@ function App() {
             );
           }}
         />
+        <Route path='/products/:id' component={Details}/>
+            
+
+        
         <Route
           path="*"
           render={() => {
