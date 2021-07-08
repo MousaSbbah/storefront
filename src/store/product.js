@@ -2,6 +2,7 @@
 import axios from 'axios';
 let initialState = {
   products: [],
+  details:{},
   currentCategory: 'none',
 };
 
@@ -12,6 +13,10 @@ const reducer = (state = initialState, action) => {
   switch (type) {
     case 'GET_PRODUCTS':
       return { ...state, products: payload };
+      case 'GET_DETAILS':
+        const data = state.products.filter(val =>(val._id === payload))
+        return { ...state, details: data[0] };
+  
 
     case 'FILTER_PRODUCTS':
       let newCategory = payload;
@@ -55,6 +60,16 @@ export function getProducts() {
     });
   };
 }
+export function getDetails(id) {
+  return async function (dispatch) {
+
+    dispatch({
+      type: 'GET_DETAILS',
+      payload: id,
+    });
+  };
+}
+
 export function incrementInStock(product) {
   return async function (dispatch) {
     console.log(product);
